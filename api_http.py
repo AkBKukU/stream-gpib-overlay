@@ -29,6 +29,9 @@ class APIhttp(object):
         # Define routes in class to use with flask
         self.app.add_url_rule('/','home', self.index)
         self.app.add_url_rule('/dev/gpib_data.json','3478a-0', self.dev_3478a_0)
+        self.app.add_url_rule('/window/','window', self.window)
+        self.app.add_url_rule('/window/window.css','window-css', self.windowCss)
+        self.app.add_url_rule('/window/window.js','window-js', self.windowJs)
 
         # Set headers for server
         self.app.after_request(self.add_header)
@@ -65,7 +68,21 @@ class APIhttp(object):
         """ Simple class function to send HTML to browser """
         return """
 <a href="/dev/gpib_data.json"><h2>DMM</h2></a>
+<a href="/window/"><h2>Window</h2></a>
         """
+
+    def window(self):
+        """ Simple class function to send HTML to browser """
+        return send_file("http/window.html")
+
+    def windowCss(self):
+        """ Simple class function to send HTML to browser """
+        return send_file("http/window.css")
+
+    def windowJs(self):
+        """ Simple class function to send HTML to browser """
+        return send_file("http/window.js")
+
 
 
     def dev_3478a_0(self):

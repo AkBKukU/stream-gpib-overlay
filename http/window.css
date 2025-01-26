@@ -1,0 +1,200 @@
+
+body { background-color: rgba(0, 0, 0, 0); margin: 0px auto; overflow: hidden;}
+
+#window
+{
+    /*Sub Window Postioning*/
+    margin:   0;
+    padding:  1em;
+    width:    1920px;
+    height:   1080px;
+}
+
+.fade-in {
+	opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 1s;
+}
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+
+
+.fade-out {
+	opacity: 0;
+	animation-name: fadeOutOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 1s;
+}
+
+@keyframes fadeOutOpacity {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+
+#chat-container
+{
+    /*Sub Window Postioning*/
+    position: absolute;
+    top:      320px;
+    left:     0px;
+    height:   480px;
+    width:    440px;
+    margin:   0px;
+
+    /*Box Functional*/
+    display: flex;
+    padding-right:1em;
+    padding-right:1em;
+    overflow: hidden;
+
+    /*Box Cosmetic*/
+    background-color: rgba(1, 0, 0, 0.85);
+    border-left: 20px solid #00F;
+
+
+    /*Text Cosmetic*/
+    font-family: sans-serif;
+    text-shadow: 0px 0px 8px black;
+
+}
+
+#chat-list{
+    /*Box Functional*/
+    margin: 0px;
+    padding-bottom: 0em;
+    overflow: hidden;
+    align-self: flex-end;
+
+    /*Text Functional*/
+    list-style-type: none;
+    font-size: 1.5em;
+
+    /*Text Cosmetic*/
+    color: white;
+}
+
+#chat-list li
+{
+    /*Box Functional*/
+    margin-left: -1em;
+    padding-bottom: 0.5em
+}
+
+#chat-list li .name
+{
+    /*Text Cosmetic*/
+    font-weight: bold;
+}
+
+
+#message-box
+{
+    /*Sub Window Postioning*/
+    position: absolute;
+    bottom:   48px;
+    left:     10px;
+    max-width:800px;
+    margin:   0px;
+    padding:  20px;
+
+    /*Box Cosmetic*/
+    background-color: rgba(1, 0, 0, 0.85);
+    border-left: 20px solid #0F0;
+
+    /*Text Functional*/
+    font-size: 1.7em;
+
+    /*Text Cosmetic*/
+    font-family: sans-serif;
+    color: white;
+    text-shadow: 0px 0px 8px black;
+    font-weight: bold;
+}
+
+#poll-box,
+.poll-box
+{
+    /*Sub Window Postioning*/
+    position: absolute;
+    top:      20px;
+    right:    20px;
+    max-width:800px;
+    margin:   0px;
+    margin-right:    20px;
+    padding:  20px;
+    padding-bottom:  0px;
+    padding-top:  0.5em;
+
+    /*Box Functional*/
+    padding-right:1em;
+    border-left: 20px solid #F00;
+
+    /*Box Cosmetic*/
+    background-color: rgba(0, 0, 0, 0.85);
+
+    /*Text Functional*/
+    font-size: 1.7em;
+
+    /*Text Cosmetic*/
+    color: white;
+    font-family: sans-serif;
+    text-shadow: 0px 0px 8px black;
+}
+
+#poll-list > li,
+.poll-list > li
+{
+    margin-bottom:    0.25em;
+}
+
+#poll-list > li > div.poll-bar,
+.poll-list > li > div.poll-bar
+{
+    /*Sub Window Postioning*/
+    height:   1.5em;
+    padding-left:    2em;
+    margin-left:    -2em;
+    padding-right:    1em;
+    margin-right:    -1em;
+    margin-top:    -1.35em;
+
+    /*Box Cosmetic*/
+    background-color: rgba(127, 127, 127, 0.55);
+}
+.poll-count
+{
+    clear:    right;
+    float:    right;
+}
+
+.poll-text
+{
+    /*Text Functional*/
+    font-weight: bold;
+    margin-right: 1em;
+
+}
+
+#poll-title,
+.poll-title
+{
+    margin-top:   0px;
+    margin-bottom:   0px;
+    border-bottom: 3px solid #FFF;
+}

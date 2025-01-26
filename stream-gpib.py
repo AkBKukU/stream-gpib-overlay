@@ -20,9 +20,9 @@ async def main_loop():
     """ Blocking main loop to provide time for async tasks to run"""
     global loop_state
     while loop_state:
-        data = {}
+        data = {"devices":[]}
         dmm1.update()
-        data["3478A One"]=dmm1.read()
+        data["devices"].append({"3478A One":dmm1.read()})
 
 
         with open(data_json, 'w', encoding="utf-8") as output:
