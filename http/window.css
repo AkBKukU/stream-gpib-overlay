@@ -211,4 +211,5 @@ body { background-color: rgba(0, 0, 0, 0); margin: 0px auto; overflow: hidden;}
     margin-top:   0px;
     margin-bottom:   0px;
     border-bottom: 3px solid #FFF;
+    padding-left: 0.5em;
 }
