@@ -9,9 +9,7 @@ from flask import make_response
 from multiprocessing import Process
 
 import os
-import bleach
 import json
-from num2words import num2words
 from datetime import datetime
 
 class APIhttp(object):

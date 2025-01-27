@@ -7,4 +7,8 @@ class GPIB3478A(GPIBInterface):
         super().__init__(gpib_address,gpib_interface)
 
     def update(self):
-        self.value = {"Reading":float(self.device.read(100))}
+        try:
+            # Just reading the buffer will give the current display value
+            self.value = {"Reading":float(self.device.read(100))}
+        except:
+            self.value = None

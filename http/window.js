@@ -4,25 +4,32 @@
 // Poll Handling
 function poll_read(poll_data)
 {
+    devices_box = document.getElementById("devices-box");
     if(poll_data.length ==0)
     {
+        devices_box.classList.add('fade-out');
+        devices_box.classList.remove('fade-in');
       return
     }
 
+    devices_box.classList.add('fade-in');
+    devices_box.classList.remove('fade-out');
 
-    devices_box = document.getElementById("devices-box");
+
     devices_box.textContent = '';
 
-    for (devices of Object.entries(poll_data.devices[0]))
+    for (devices of poll_data.devices)
     {
       for (const [key, device] of Object.entries(devices))
       {
         device_new = document.createElement("div");
         device_new.classList.add("poll-box");
         title = document.createElement("h3");
+        title.classList.add("poll-title");
         title.textContent = key;
-        devices_box.appendChild(title)
+        device_new.appendChild(title)
         list = document.createElement("ul");
+        list.classList.add("poll-list");
         for (const [reading, value] of Object.entries(device))
         {
           li = document.createElement("li");
@@ -38,15 +45,11 @@ function poll_read(poll_data)
           li.appendChild(count)
           list.appendChild(li)
         }
-        devices_box.appendChild(list)
+        device_new.appendChild(list)
       }
 
       devices_box.appendChild(device_new)
     }
-
-    poll_box = document.getElementById("poll-box");
-    poll_box.classList.add('fade-in');
-    poll_box.classList.remove('fade-out');
 }
 
 
@@ -64,4 +67,4 @@ function poll_fetch()
 
 // Final Init
 setTimeout(poll_fetch,1000)
-document.getElementById("poll-box").classList.add('fade-out');
+document.getElementById("devices-box").classList.add('fade-out');
