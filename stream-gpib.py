@@ -3,9 +3,9 @@
 
 from api_http import APIhttp
 
-#from gpib_3478a import GPIB3478A
+from gpib_3478a import GPIB3478A
 
-from gpib_test import GPIBInterface as GPIB3478A
+#from gpib_test import GPIBInterface as GPIB3478A
 
 import asyncio
 import signal
@@ -30,14 +30,12 @@ async def main_loop():
             data["devices"].append({"3478A One":dmm1.read()})
         if dmm2.read() is not None:
             data["devices"].append({"3478A Two":dmm2.read()})
-        if dmm1.read() is not None:
-            data["devices"].append({"3478A One":dmm1.read()})
 
 
         with open(data_json, 'w', encoding="utf-8") as output:
             output.write(json.dumps(data))
 
-        await asyncio.sleep(3)
+        await asyncio.sleep(1)
 
 
 async def main():
