@@ -1,5 +1,4 @@
 
-from Gpib import *
 from gpib_base import GPIBInterface
 
 class GPIB3478A(GPIBInterface):

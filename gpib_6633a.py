@@ -5,6 +5,7 @@ class GPIB6633A(GPIBInterface):
 
     def __init__(self,gpib_address,gpib_interface=0):
         super().__init__(gpib_address,gpib_interface)
+        self.update_interval=10
 
     def update(self):
         try:
@@ -17,5 +18,6 @@ class GPIB6633A(GPIBInterface):
                 "Volts":volts,
                 "Amps":amps,
                 }
+            self.device.ibloc()
         except:
             self.value = None
