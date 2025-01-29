@@ -5,6 +5,7 @@ from api_http import APIhttp
 
 from gpib_3478a import GPIB3478A
 from gpib_6633a import GPIB6633A
+from gpib_34401a import GPIB34401A
 
 #from gpib_test import GPIBInterface as GPIB3478A
 
@@ -16,6 +17,7 @@ data_json = "/tmp/gpib_data.json"
 
 dmm1 = GPIB3478A(12)
 dmm2 = GPIB3478A(13)
+dmm3 = GPIB34401A(11)
 psu1 = GPIB6633A(6)
 psu2 = GPIB6633A(7)
 
@@ -29,12 +31,15 @@ async def main_loop():
         data = {"devices":[]}
         dmm1.update_int()
         dmm2.update_int()
+        dmm3.update_int()
         psu1.update_int()
         psu2.update_int()
         if dmm1.read() is not None:
             data["devices"].append({"DMM: 3478A Top":dmm1.read()})
         if dmm2.read() is not None:
             data["devices"].append({"DMM: 3478A Bottom":dmm2.read()})
+        if dmm3.read() is not None:
+            data["devices"].append({"DMM: 34401A":dmm3.read()})
         if psu1.read() is not None:
             data["devices"].append({"PSU: 6632A":psu1.read()})
         if psu2.read() is not None:

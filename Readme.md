@@ -25,6 +25,6 @@ This power supply predates SCIP but does need either `IOUT?` or `VOUT?` to read 
 ## Web Overlay
 
 This program uses `flask` to create web display of the readings. The goal though is to only have the display when the device is on. Data from the devices is communicated to the web front end using JSON both as a workaround for async issues and an easy way to load data with Javascript.
-  
+
 At all times the program is trying to read from all devices, but when they don't respond the are omitted from the JSON data.
 
