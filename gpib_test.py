@@ -1,18 +1,20 @@
 #!/usr/bin/python3
+from gpib_base import GPIBInterface
+
 import random
 
 
-class GPIBInterface(object):
+class GPIBTest(GPIBInterface):
 
 
     def __init__(self,gpib_address,gpib_interface=0):
         self.value={}
-        self.device_id = "base"
+        self.device_id = "test"
+        self.update_interval=0
+        self.update_countdown=0
 
     def update(self):
         self.value = {"Random":random.random()}
 
-    def read(self):
-        return self.value
 
 

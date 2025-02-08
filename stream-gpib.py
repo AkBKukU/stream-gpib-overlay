@@ -7,19 +7,22 @@ from gpib_3478a import GPIB3478A
 from gpib_6633a import GPIB6633A
 from gpib_34401a import GPIB34401A
 
-#from gpib_test import GPIBInterface as GPIB3478A
+from gpib_test import GPIBTest
 
 import asyncio
 import signal
 import json
 
 data_json = "/tmp/gpib_data.json"
+data_control = "/tmp/gpib_control.json"
+devices = []
+devices.append({"name":"Fake Device", "dev":GPIBTest(12)})
+#devices.append({"name":"DMM: 3478A Top", "dev":GPIB3478A(12)})
+#devices.append({"name":"DMM: 3478A Bottom", "dev":GPIB3478A(13)})
+# devices.append({"name":"DMM: 34401A", "dev":GPIB34401A(11)})
+# devices.append({"name":"PSU: 6632A", "dev":GPIB6633A(6)})
+# devices.append({"name":"PSU: 6633A", "dev":GPIB6633A(7)})
 
-dmm1 = GPIB3478A(12)
-dmm2 = GPIB3478A(13)
-dmm3 = GPIB34401A(11)
-psu1 = GPIB6633A(6)
-psu2 = GPIB6633A(7)
 
 global loop_state
 loop_state = True
@@ -28,26 +31,25 @@ async def main_loop():
     """ Blocking main loop to provide time for async tasks to run"""
     global loop_state
     while loop_state:
-        data = {"devices":[]}
-        dmm1.update_int()
-        dmm2.update_int()
-        dmm3.update_int()
-        psu1.update_int()
-        psu2.update_int()
-        if dmm1.read() is not None:
-            data["devices"].append({"DMM: 3478A Top":dmm1.read()})
-        if dmm2.read() is not None:
-            data["devices"].append({"DMM: 3478A Bottom":dmm2.read()})
-        if dmm3.read() is not None:
-            data["devices"].append({"DMM: 34401A":dmm3.read()})
-        if psu1.read() is not None:
-            data["devices"].append({"PSU: 6632A":psu1.read()})
-        if psu2.read() is not None:
-            data["devices"].append({"PSU: 6633A":psu2.read()})
+
+        pause=False
+        try:
+            with open(data_control, 'r') as f:
+                config = json.load(f)
+                pause = config["pause"]
+        except:
+            pause=False
+
+        if not pause:
+            data = {"devices":[]}
+            for dev in devices:
+                dev["dev"].update_int()
+                if dev["dev"].read() is not None:
+                    data["devices"].append({dev["name"]:dev["dev"].read()})
 
 
-        with open(data_json, 'w', encoding="utf-8") as output:
-            output.write(json.dumps(data))
+            with open(data_json, 'w', encoding="utf-8") as output:
+                output.write(json.dumps(data))
 
         await asyncio.sleep(1)
 
