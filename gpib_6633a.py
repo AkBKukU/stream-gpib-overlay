@@ -9,8 +9,8 @@ class GPIB6633A(GPIBInterface):
         self.device_id = "HP 663X"
 
         if default:
-            self.intCreate("Volts","VOUT?",interval=0,conv_float=True)
-            self.intCreate("Amps","IOUT?",interval=0,conv_float=True)
+            self.intCreate("Volts","VOUT?",interval=3,conv_float=True)
+            self.intCreate("Amps","IOUT?",interval=3,conv_float=True)
 
 
     def update_post(self):

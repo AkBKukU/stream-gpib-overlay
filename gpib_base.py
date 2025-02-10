@@ -84,10 +84,12 @@ class GPIBInterface(object):
 
         if not isinstance(names, list):
             names = [names]
+        else:
+            print("is list")
 
         results={}
         for name in names:
-            print(f"{name}: {self.value}")
+            print(f"{name}: {self.gpib_results[name]}")
             results[name] = self.gpib_results[name]
         return results
 
@@ -191,7 +193,7 @@ class GPIBInterface(object):
         repeat        -- Run indefinitely (default True)
         """
         self.interval_commands[name]={
-                    "command":command,
+                    "command":str(command),
                     "interval":interval,
                     "countdown":interval,
                     "read_response":read_response,
@@ -234,7 +236,7 @@ class GPIBInterface(object):
 
             # Handle command
             self.gpibCommandResponse(
-                inter["countdown"],
+                inter["command"],
                 inter["read_response"],
                 inter["float_response"],
                 name
