@@ -43,8 +43,8 @@ async def main_loop():
         if not pause:
             data = {"devices":[]}
             for dev in devices:
-                dev["dev"].update_int()
-                if dev["dev"].read() is not None:
+                dev["dev"].update()
+                if dev["dev"].active:
                     data["devices"].append({dev["name"]:dev["dev"].read()})
 
 
