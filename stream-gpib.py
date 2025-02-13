@@ -19,7 +19,8 @@ devices = []
 #devices.append({"name":"Fake Device", "dev":GPIBTest(12)})
 #devices.append({"name":"DMM: 3478A Top", "dev":GPIB3478A(12)})
 #devices.append({"name":"DMM: 3478A Bottom", "dev":GPIB3478A(13)})
-devices.append({"name":"DMM: 34401A", "dev":GPIB34401A(11)})
+#devices.append({"name":"DMM: 34401A", "dev":GPIB34401A(11)})
+devices.append({"name":"DMM: 34401A", "dev":GPIB3478A(11,emu34401A=True)})
 # devices.append({"name":"PSU: 6632A", "dev":GPIB6633A(6)})
 # devices.append({"name":"PSU: 6633A", "dev":GPIB6633A(7)})
 
