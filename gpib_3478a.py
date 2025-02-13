@@ -8,5 +8,5 @@ class GPIB3478A(GPIBInterface):
         self.device_id = "HP 3478A"
 
         if default:
-            self.intCreate("Reading","",interval=0,conv_float=True)
+            self.intCreate("Reading",None,interval=0,conv_float=True)
 

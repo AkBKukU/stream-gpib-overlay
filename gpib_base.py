@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import random
+import time
 
 from Gpib import *
 
@@ -84,8 +85,6 @@ class GPIBInterface(object):
 
         if not isinstance(names, list):
             names = [names]
-        else:
-            print("is list")
 
         results={}
         for name in names:
@@ -107,10 +106,12 @@ class GPIBInterface(object):
                 result=self.device.read(read_response)
             else:
                 result=str(random.random()).encode("ascii")
+            print(f"{self.device_id}: Result [{str(result)}]")
             self.active = True
         except:
             self.active = False
             self.initialized = False
+            print(f"{self.device_id}: gpibRead initialized = False")
             return None
 
         if conv_float:
@@ -118,16 +119,20 @@ class GPIBInterface(object):
         else:
             return str(result)
 
+
     def gpibWrite(self,command):
         """Write a command to the GP-IB device"""
         try:
             if not self.test:
-                self.device.write(command)
+                self.device.write(str(command))
+
+            print(f"{self.device_id}: Command [{str(command)}]")
             self.active = True
             return True
         except:
             self.active = False
             self.initialized = False
+            print(f"{self.device_id}: gpibWrite initialized = False")
             return False
 
 
@@ -147,11 +152,17 @@ class GPIBInterface(object):
                 return None
 
         # If there is a command, send it
-        if command != "":
-            if not self.gpibWrite(command):
-                self.active = False
-                self.initialized = False
-                return
+        if command is not None:
+            if not isinstance(command, list):
+                command = [command]
+
+            for cmd in command:
+                if not self.gpibWrite(cmd):
+                    self.active = False
+                    self.initialized = False
+                    print(f"{self.device_id}: initialized = False")
+                    return
+                time.sleep(0.5)
 
         # Read the response if requested
         if read_response:
@@ -176,6 +187,7 @@ class GPIBInterface(object):
         except:
             self.active = False
             self.initialized = False
+            print(f"{self.device_id}: initialized = False")
             return None
 
 
@@ -193,7 +205,7 @@ class GPIBInterface(object):
         repeat        -- Run indefinitely (default True)
         """
         self.interval_commands[name]={
-                    "command":str(command),
+                    "command":command,
                     "interval":interval,
                     "countdown":interval,
                     "read_response":read_response,
